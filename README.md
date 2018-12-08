@@ -10,6 +10,7 @@ Main Features:
     Integrating Uru effects into base weapon stats. (upgrading damage die, adding modifiers, clip size, etc)
     Tracking Dust Grenades
     Tracking Grit Points
+    TRICK SHOTS
 
 Features: 
 
