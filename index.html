@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="shortcut icon" href="Static/GoldLogo.png" type="image/x-icon">
-  <link rel="icon" href="Static/GoldLogo.png" type="image/x-icon">
-  <title>Arcane Arsenal</title>
+  <!-- <link rel="shortcut icon" href="Static/GoldLogo.png" type="image/x-icon">
+  <link rel="icon" href="Static/GoldLogo.png" type="image/x-icon"> -->
+  <title>ArcaneArsenal</title>
   <link rel="stylesheet"
   href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" 
   integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" 
@@ -12,19 +12,52 @@
 <body>
 
   <div class="tool-container">
+    <div class="frame">
+
+      <div class="title-section">
+        <div class="icon-title">
+          <div class="icon-container">
+            <img src="Static/MakersMark.png" alt="maker's mark">
+          </div>
+          <div class="title">Loth&nbsp;{{level}}</div>
+        </div>
+        <div class="counters"></div>
+      </div>
+
+      <div class="tab-combat-research">
+
+          <div class="tab-section">
+            <div class="tabs">
+              <div v-bind:class="{ isSelected : isInv }" class="inventory-tab" @click="toggleTab">Inventory</div>
+              <div v-bind:class="{ isSelected : !isInv }" class="crafting-tab" @click="toggleTab">Crafting</div>
+            </div>
+          </div>
+
+          <div class="combat-research-section"></div>
+
+      </div>
+
+    </div>
   </div>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script>
 
   var app = new Vue({
     el: '.tool-container',
     data: {
+      level: 8,
+      isInv: true
     },
     computed: {
     },
     methods: {
+      toggleTab: function () {
+        this.isInv = !this.isInv
+      }
     }
   })
 
@@ -40,6 +73,84 @@
     height: 100%;
     background-color: #000000;
     background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
+  }
+
+  .frame {
+    margin: auto;
+    padding: 32px 64px;
+  }
+
+  .title-section {
+    display: flex;
+    align-items: center;
+    height: 200px;
+  }
+
+  .icon-title {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+  }
+
+  .icon-container {
+    height: 100%;
+  }
+
+  .icon-title img {
+    height: 100%;
+  }
+
+  .icon-title .title {
+    margin: 0 3rem;
+    font-size: 3rem;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .counters {
+    height: 140px;
+    width: 500px;
+    margin-right: 1rem;
+    background-color: grey;
+  }
+
+  .tab-combat-research {
+    display: flex;
+  }
+
+  .tab-section {
+    background-color: grey;
+    margin: 1rem;
+    flex-grow: 1;
+    height: 60vh;
+  }
+
+  .tabs {
+    display: flex;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .isSelected {
+    background-color: grey;
+  }
+
+  .inventory-tab, .crafting-tab {
+    cursor: pointer;
+    flex-grow: 1;
+    font-style: italic;
+    height: 100%;
+    line-height: 48px;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .combat-research-section {
+    background-color: grey;
+    margin: 1rem;
+    flex-grow: 3;
+    height: 60vh;
   }
 
 </style>
