@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- <link rel="shortcut icon" href="Static/GoldLogo.png" type="image/x-icon">
-  <link rel="icon" href="Static/GoldLogo.png" type="image/x-icon"> -->
-  <title>ArcaneArsenal</title>
+  <link rel="shortcut icon" href="Static/GoldLogo.png" type="image/x-icon">
+  <link rel="icon" href="Static/GoldLogo.png" type="image/x-icon">
+  <title>Arcane Arsenal</title>
   <link rel="stylesheet"
   href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" 
   integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" 
@@ -21,24 +21,62 @@
           </div>
           <div class="title">Loth&nbsp;{{level}}</div>
         </div>
-        <div class="counters"></div>
-      </div>
 
-      <div class="tab-combat-research">
+        <div class="counters">
 
-          <div class="tab-section">
-            <div class="tabs">
-              <div v-bind:class="{ isSelected : isInv }" class="inventory-tab" @click="toggleTab">Inventory</div>
-              <div v-bind:class="{ isSelected : !isInv }" class="crafting-tab" @click="toggleTab">Crafting</div>
+          <div class="grit-points">
+            <div class="gp-title">
+              <span>Grit&nbsp;Points</span>
+              <span class="plus-minus">
+                <i class="fas fa-plus-circle btn" @click="addGrit(1)" ></i>
+                <i class="fas fa-minus-circle btn" @click="subGrit(1)" ></i>
+              </span>
+            </div>
+            <div class="gp-bar">
+              <div class="gp-bar-fill" :style="gritSize" >
+                <span class="gp-count">{{gritCurrent}}/{{gritMax}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grenades">
+            <div class="g-title">
+              <span>Grenades</span>
+              <span class="plus-minus">
+                <i class="fas fa-plus-circle btn" @click="addGren(1)" ></i>
+                <i class="fas fa-minus-circle btn" @click="subGren(1)" ></i>
+              </span>
+            </div>
+            <div class="g-bar">
+              <div class="g-bar-fill" :style="grenSize" >
+                <span class="g-count">{{grenCurrent}}/{{grenMax}}</span>
+              </div>
             </div>
           </div>
 
-          <div class="combat-research-section"></div>
+        </div>
 
+        </div>
+
+        <div class="tab-combat-research">
+
+            <div class="tab-section">
+              <div class="tabs">
+                <div v-bind:class="{ isSelected : isInv }" class="inventory-tab" @click="toggleTab">Inventory</div>
+                <div v-bind:class="{ isSelected : !isInv }" class="crafting-tab" @click="toggleTab">Crafting</div>
+              </div>
+            </div>
+  
+            <div class="combat-research-section">
+
+              <div class="cr-title">{{crTitle}}</div>
+
+            </div>
+  
+        </div>
+  
       </div>
-
     </div>
-  </div>
 
 </body>
 
@@ -50,14 +88,67 @@
     el: '.tool-container',
     data: {
       level: 8,
-      isInv: true
+      isInv: true,
+      gritCurrent: 3,
+      gritMax: 3,
+      grenCurrent: 2,
+      grenMax: 2
     },
     computed: {
+      gritSize: function () {
+        return {width: String((this.gritCurrent / this.gritMax) * 100) + '%'}
+      },
+      grenSize: function () {
+        return {width: String((this.grenCurrent / this.grenMax) * 100) + '%'}
+      },
+      crTitle: function () {
+        if (this.isInv) {
+          return "Combat"
+        } else {
+          return "Research"
+        }
+      }
     },
     methods: {
       toggleTab: function () {
         this.isInv = !this.isInv
-      }
+      },
+      addGrit: function (value) {
+        var newGrit = this.gritCurrent + value
+        if (newGrit <= this.gritMax) {
+          this.gritCurrent = newGrit
+        } else {
+          this.gritCurrent = this.gritMax
+          return console.log('too high')
+        }
+      },
+      subGrit: function (value) {
+        var newGrit = this.gritCurrent - value
+        if (newGrit >= 0) {
+          this.gritCurrent = newGrit
+        } else {
+          this.gritCurrent = 0
+          return console.log('too low')
+        }
+      },
+      addGren: function (value) {
+        var newGren = this.grenCurrent + value
+        if (newGren <= this.grenMax) {
+          this.grenCurrent = newGren
+        } else {
+          this.grenCurrent = this.grenMax
+          return console.log('too high')
+        }
+      },
+      subGren: function (value) {
+        var newGren = this.grenCurrent - value
+        if (newGren >= 0) {
+          this.grenCurrent = newGren
+        } else {
+          this.grenCurrent = 0
+          return console.log('too low')
+        }
+      },
     }
   })
 
@@ -79,6 +170,8 @@
     margin: auto;
     padding: 32px 64px;
   }
+
+/* Title Section */
 
   .title-section {
     display: flex;
@@ -108,12 +201,54 @@
     font-style: italic;
   }
 
+/* Counters */
+
   .counters {
-    height: 140px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100px;
     width: 500px;
     margin-right: 1rem;
     background-color: grey;
   }
+
+  .plus-minus i {
+    cursor: pointer;
+    color: darkgrey;
+  }
+
+  .plus-minus i:hover {
+    color: whitesmoke;
+  }
+
+  .grit-points, .grenades {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 1rem;
+  }
+
+  .gp-title, .g-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    user-select: none;
+  }
+
+  .gp-bar, .g-bar {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .gp-bar-fill, .g-bar-fill {
+    background-color: #7026ac;
+  }
+
+  .gp-count, .g-count {
+    margin-left: 0.5rem;
+  }
+
+/* Tabs */
 
   .tab-combat-research {
     display: flex;
@@ -122,7 +257,7 @@
   .tab-section {
     background-color: grey;
     margin: 1rem;
-    flex-grow: 1;
+    width: 30vw;
     height: 60vh;
   }
 
@@ -130,6 +265,7 @@
     display: flex;
     height: 3rem;
     background-color: rgba(0, 0, 0, 0.4);
+    user-select: none;
   }
 
   .isSelected {
@@ -146,11 +282,22 @@
     font-size: 1.3rem;
   }
 
+/* Combat Research Section */
+
   .combat-research-section {
-    background-color: grey;
+    background-color: rgba(255, 255, 255, 0.2);
     margin: 1rem;
     flex-grow: 3;
     height: 60vh;
+  }
+
+  .cr-title {
+    height: 3rem;
+    line-height: 48px;
+    font-size: 1.3rem;
+    font-style: italic;
+    padding-left: 1rem;
+    background-color: grey;
   }
 
 </style>
