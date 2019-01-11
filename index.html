@@ -19,7 +19,7 @@
           <div class="icon-container">
             <img src="Static/MakersMark.png" alt="maker's mark">
           </div>
-          <div class="title">Loth&nbsp;{{level}}</div>
+          <div class="title">{{name}}&nbsp;{{level}}</div>
         </div>
 
         <div class="counters">
@@ -34,7 +34,7 @@
             </div>
             <div class="gp-bar">
               <div class="gp-bar-fill" :style="gritSize" >
-                <span class="gp-count">{{gritCurrent}}/{{gritMax}}</span>
+                <span class="gp-count">{{gritCurrent}}&nbsp;/&nbsp;{{gritMax}}</span>
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="g-bar">
               <div class="g-bar-fill" :style="grenSize" >
-                <span class="g-count">{{grenCurrent}}/{{grenMax}}</span>
+                <span class="g-count">{{grenCurrent}}&nbsp;/&nbsp;{{grenMax}}</span>
               </div>
             </div>
           </div>
@@ -87,6 +87,7 @@
   var app = new Vue({
     el: '.tool-container',
     data: {
+      name: "Loth",
       level: 8,
       isInv: true,
       gritCurrent: 3,
@@ -160,9 +161,10 @@
 
   html {
     color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
     height: 100%;
-    background-color: #000000;
+    background-color: black;
     background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
   }
 
@@ -192,13 +194,20 @@
 
   .icon-title img {
     height: 100%;
+    margin-left: 1rem;
   }
 
   .icon-title .title {
     margin: 0 3rem;
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: 3.5rem;
+    color: black;
     font-style: italic;
+    font-weight: bold;
+    text-shadow:
+      -1px -1px 0 grey,
+      1px -1px 0 grey,
+      -1px 1px 0 grey,
+      1px 1px 0 grey;
   }
 
 /* Counters */
@@ -216,6 +225,7 @@
   .plus-minus i {
     cursor: pointer;
     color: darkgrey;
+    text-shadow: none;
   }
 
   .plus-minus i:hover {
@@ -234,18 +244,35 @@
     justify-content: space-between;
     margin-bottom: 5px;
     user-select: none;
+    font-size: 1.2rem;
+    font-style: italic;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
   }
 
   .gp-bar, .g-bar {
+    height: 1.3rem;
     background-color: rgba(0, 0, 0, 0.4);
   }
 
   .gp-bar-fill, .g-bar-fill {
-    background-color: #7026ac;
+    height: 100%;
+    /* background-color: #7026ac; */
+    background: linear-gradient(to right, #6c28da , #4e58dd);
   }
 
   .gp-count, .g-count {
     margin-left: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.3rem;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
   }
 
 /* Tabs */
@@ -273,31 +300,42 @@
   }
 
   .inventory-tab, .crafting-tab {
-    cursor: pointer;
     flex-grow: 1;
-    font-style: italic;
     height: 100%;
+    cursor: pointer;
     line-height: 48px;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    font-style: italic;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
   }
 
 /* Combat Research Section */
 
   .combat-research-section {
-    background-color: rgba(255, 255, 255, 0.2);
-    margin: 1rem;
     flex-grow: 3;
+    background-color: rgba(255, 255, 255, 0.2);
     height: 60vh;
+    margin: 1rem;
   }
 
   .cr-title {
     height: 3rem;
-    line-height: 48px;
-    font-size: 1.3rem;
-    font-style: italic;
-    padding-left: 1rem;
     background-color: grey;
+    padding-left: 1rem;
+    line-height: 48px;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: bold;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
   }
 
 </style>
