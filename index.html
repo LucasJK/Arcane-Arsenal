@@ -65,6 +65,22 @@
                 <div v-bind:class="{ isSelected : isInv }" class="inventory-tab" @click="toggleTab">Inventory</div>
                 <div v-bind:class="{ isSelected : !isInv }" class="crafting-tab" @click="toggleTab">Crafting</div>
               </div>
+
+              <div class="inv-container" v-if="isInv">
+
+                <ul class="inv">
+                  <li v-for="item in inventory" class="inv-item">
+                    <div class="name-type">
+                      <div class="item-name">{{item.name}}</div>
+                      <div class="item-type">{{item.type}}</div>
+                    </div>
+                    <div class="item-quantity">{{item.quantity}}</div>
+                    <div class="item-weight">{{item.weight}}&nbsp;lbs</div>
+                  </li>
+                </ul>
+
+              </div>
+
             </div>
   
             <div class="combat-research-section">
@@ -93,7 +109,45 @@
       gritCurrent: 3,
       gritMax: 3,
       grenCurrent: 2,
-      grenMax: 2
+      grenMax: 2,
+      inventory: [
+        {
+          name: 'Rooty Tooty Point n Shooty',
+          type: 'gun',
+          quantity: 1,
+          weight: 7
+        },
+        {
+          name: 'Fam0n',
+          type: 'gun',
+          quantity: 1,
+          weight: 15
+        },
+        {
+          name: 'Pistol Barrel',
+          type: 'component',
+          quantity: 1,
+          weight: 2
+        },
+        {
+          name: 'Crystal II S',
+          type: 'clip',
+          quantity: 1,
+          weight: 0
+        },
+        {
+          name: 'Crystal II S Glazed',
+          type: 'clip',
+          quantity: 1,
+          weight: 0
+        },
+        {
+          name: 'Harness S',
+          type: 'harness',
+          quantity: 1,
+          weight: 0
+        },
+      ]
     },
     computed: {
       gritSize: function () {
@@ -291,7 +345,7 @@
   .tabs {
     display: flex;
     height: 3rem;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0,0,0,0.4);
     user-select: none;
   }
 
@@ -312,6 +366,90 @@
       1px -1px 0 black,
       -1px 1px 0 black,
       1px 1px 0 black;
+  }
+
+/* Inventory */
+
+  .inv-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: fit-content;
+
+    max-height: calc(60vh - 3rem);
+    background-color: #525050;
+  }
+  
+  .inv {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .inv::-webkit-scrollbar {
+    width: 1em;
+  }
+  
+  .inv::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+  
+  .inv::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
+  .inv-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    min-height: 80px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .inv-item:nth-child(even) {
+    background-color: #444444;
+  }
+  .inv-item:nth-child(odd) {
+    background-color: #525050;
+  }
+
+  .name-type {
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-name {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
+  }
+
+  .item-type {
+    color: darkgrey;
+    font-style: italic;
+  }
+
+  .item-quantity {
+    min-width: 40px;
+  }
+
+  .item-weight {
+    min-width: 50px;
   }
 
 /* Combat Research Section */
