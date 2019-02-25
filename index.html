@@ -112,14 +112,20 @@
       grenMax: 2,
       inventory: [
         {
-          name: 'Rooty Tooty Point n Shooty',
-          type: 'gun',
+          name: 'Long Boi',
+          type: 'sniper rifle',
+          quantity: 1,
+          weight: 10
+        },
+        {
+          name: 'Mettle',
+          type: 'submachine gun',
           quantity: 1,
           weight: 7
         },
         {
-          name: 'Fam0n',
-          type: 'gun',
+          name: 'Rooty Tooty Point n Shooty',
+          type: 'pistol',
           quantity: 1,
           weight: 15
         },
@@ -347,10 +353,22 @@
     height: 3rem;
     background-color: rgba(0,0,0,0.4);
     user-select: none;
+    color: grey;
+    text-shadow:
+      -1px -1px 0 rgba(0, 0, 0, 0.2),
+      1px -1px 0 rgba(0, 0, 0, 0.2),
+      -1px 1px 0 rgba(0, 0, 0, 0.2),
+      1px 1px 0 rgba(0, 0, 0, 0.2) !important;
   }
 
   .isSelected {
     background-color: grey;
+    color: white;
+    text-shadow:
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px 1px 0 black,
+      1px 1px 0 black;
   }
 
   .inventory-tab, .crafting-tab {
@@ -361,11 +379,6 @@
     text-align: center;
     font-size: 1.5rem;
     font-style: italic;
-    text-shadow:
-      -1px -1px 0 black,
-      1px -1px 0 black,
-      -1px 1px 0 black,
-      1px 1px 0 black;
   }
 
 /* Inventory */
@@ -446,10 +459,14 @@
 
   .item-quantity {
     min-width: 40px;
+    font-size: 1.1rem;
+    font-style: italic;
   }
 
   .item-weight {
     min-width: 50px;
+    font-size: 1.1rem;
+    font-style: italic;
   }
 
 /* Combat Research Section */
